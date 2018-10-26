@@ -10,6 +10,7 @@ program      : *_*convert, resize, reshape and add watermark handlers for image 
 
 
 import os
+import commands
 
 
 class ImageHandler:
@@ -39,7 +40,8 @@ class ImageHandler:
         :return: list
             image attribute of [width, height].
         """
-        attr = os.popen("identify {0}".format(self.image)).next().split()[2].split('x')
+        # attr = os.popen("identify {0}".format(self.image)).next().split()[2].split('x')   # alpha version
+        attr = commands.getoutput("identify {0}".format(self.image)).split()[2].split('x')
         attr[0] = int(attr[0])
         attr[1] = int(attr[1])
         return attr
